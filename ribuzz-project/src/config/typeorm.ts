@@ -8,10 +8,12 @@ dotenvConfig({ path: '.env' }) ;
 const config = {
     type: process.env.TYPE_DB as any,
     host: process.env.HOST_DB,
-    port: parseInt(process.env.PORT, 10),
+    port: parseInt(process.env.PORT_DB, 10),
     username: process.env.USERNAME_DB,
     password: process.env.PASSWORD_DB,
     database: process.env.DATABASE_DB,
+    //url_int:process.env.DATABASE_INTERNAL_UR,
+    //url_ext: process.env.DATABASE_EXTERNAL_EXT,
     entities: [__dirname + 'dist/../Entidades/*.entity.{ts,js}'],
     migrations: [__dirname + 'dist/../Migraciones/*.{ts,.js}'],
     autoLoadEntities:true,
@@ -20,5 +22,5 @@ const config = {
 }
 
 export default registerAs('typeorm', () => config);
-
+//export DATABASE_URL = process.env.DATABASE_EXTERNAL_EXT
 export const connectionSource = new DataSource(config as DataSourceOptions);
