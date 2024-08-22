@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import {registerAs} from '@nestjs/config';
 import { config as dotenvConfig } from 'dotenv';
-import { DataSource, DataSourceOptions } from 'typeorm';
+//import { DataSource, DataSourceOptions } from 'typeorm';
 
 dotenvConfig({ path: '.env' }) ;
 
 const config = {
-    type: process.env.TYPE_DB as any,
+    type: 'postgres',
     host: process.env.HOST_DB,
     port: parseInt(process.env.PORT_DB, 10),
     username: process.env.USERNAME_DB,
@@ -17,10 +17,13 @@ const config = {
     entities: [__dirname + 'dist/../Entidades/*.entity.{ts,js}'],
     migrations: [__dirname + 'dist/../Migraciones/*.{ts,.js}'],
     autoLoadEntities:true,
-    synchronize: true,
+    synchronize: false,
     logging: true,
+    ssl: {
+        rejectUnauthorized: false, 
+    },
 }
 
 export default registerAs('typeorm', () => config);
-//export DATABASE_URL = process.env.DATABASE_EXTERNAL_EXT
-export const connectionSource = new DataSource(config as DataSourceOptions);
+/*export DATABASE_URL = process.env.DATABASE_EXTERNAL_EXT
+export const connectionSource = new DataSource(config as DataSourceOptions);*/

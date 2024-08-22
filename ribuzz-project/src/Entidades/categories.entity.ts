@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { Entity, PrimaryGeneratedColumn,Column, ManyToMany, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn,Column, ManyToMany, JoinTable } from "typeorm";
 import {Products} from "./products.entity"
 
 @Entity({
@@ -15,6 +15,6 @@ export class Categories{
     nombre: string
 
     @ManyToMany(() => Products, (product)=>product.id)
-    @JoinColumn()
+    @JoinTable()
     productos: Products[]
 }
