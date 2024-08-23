@@ -7,6 +7,8 @@ import typeOrmConfig from './config/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CategoriesModule } from './Categorias/categories.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { ProductsModule } from './products/products.module';
+import { FileUploudModule } from './file-upload/file-upload.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { UsuarioModule } from './usuario/usuario.module';
       }),
     }),
     CategoriesModule,
-    UsuarioModule
+    UsuarioModule,
+    ProductsModule,
+    FileUploudModule
   ],
   controllers: [AppController],
   providers: [AppService],
