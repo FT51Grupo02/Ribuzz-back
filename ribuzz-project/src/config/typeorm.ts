@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
-import {registerAs} from '@nestjs/config';
+import { registerAs } from '@nestjs/config';
 import { config as dotenvConfig } from 'dotenv';
 //import { DataSource, DataSourceOptions } from 'typeorm';
 
-dotenvConfig({ path: '.env' }) ;
+
+
+dotenvConfig({ path: '.env' });
 
 const config = {
     type: 'postgres',
@@ -27,3 +29,5 @@ const config = {
 export default registerAs('typeorm', () => config);
 /*export DATABASE_URL = process.env.DATABASE_EXTERNAL_EXT
 export const connectionSource = new DataSource(config as DataSourceOptions);*/
+
+  

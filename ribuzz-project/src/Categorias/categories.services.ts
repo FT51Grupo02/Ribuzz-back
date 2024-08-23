@@ -8,9 +8,27 @@ import { Repository } from "typeorm";
 export class CategoriesService {
     constructor(@InjectRepository(Categories) private readonly categoriesRepository: Repository<Categories>) {}
 
+
+    
+    //Investigar productos por categoria
+    async findCategory(nombre: string){
+        if(!nombre){throw new BadRequestException('Por favor inserte la categoria')}
+        
+        const findCategory = await this.categoriesRepository.findOne({
+            where:{nombre},
+            relations: {
+                productos:true
+            }
+        })
+
+        if(!findCategory){throw new BadRequestException('Categoria no se encuentra disponible')}
+
+        else {return findCategory};
+    }
+
+    //Crear categoria
     async imputCategory(nombre: string): Promise<Categories> {
         // Detectar si la casilla no está vacía
-        console.log(nombre)
         if (!nombre) {
             throw new BadRequestException('La casilla nombre no puede quedar vacía');
         }
