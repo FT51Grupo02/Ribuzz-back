@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import typeOrmConfig from './config/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CategoriesModule } from './Categorias/categories.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { CategoriesModule } from './Categorias/categories.module';
         ...configService.get('typeorm'),
       }),
     }),
-    CategoriesModule
+    CategoriesModule,
+    UsuarioModule
   ],
   controllers: [AppController],
   providers: [AppService],
