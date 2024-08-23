@@ -1,15 +1,28 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import typeOrmConfig from './config/typeorm'; // Importa tu configuración de TypeORM
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import typeOrmConfig from './config/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CategoriesModule } from './Categorias/categories.module';
 import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
-  imports: [  TypeOrmModule.forRootAsync({
-    useFactory: () => typeOrmConfig(),
-  }),UsuarioModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [typeOrmConfig],
+    }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        ...configService.get('typeorm'),
+      }),
+    }),
+    CategoriesModule,
+    UsuarioModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

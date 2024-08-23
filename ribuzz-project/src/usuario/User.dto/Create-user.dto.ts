@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 export class CreateUserDto {
-    nombres: string;
+    nombre: string;
     correo: string;
     contraseña: string;
     fecha: Date;

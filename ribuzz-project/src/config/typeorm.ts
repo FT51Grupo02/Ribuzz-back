@@ -1,25 +1,33 @@
 /* eslint-disable prettier/prettier */
 import { registerAs } from '@nestjs/config';
 import { config as dotenvConfig } from 'dotenv';
-import { DataSource, DataSourceOptions } from 'typeorm';
-import { join } from 'path';
+//import { DataSource, DataSourceOptions } from 'typeorm';
+
+
 
 dotenvConfig({ path: '.env' });
 
 const config = {
-    type: process.env.TYPE_DB as any,
+    type: 'postgres',
     host: process.env.HOST_DB,
-    port: parseInt(process.env.PORT_DB, 10), // Asegúrate de que esta variable sea la correcta
+    port: parseInt(process.env.PORT_DB, 10),
     username: process.env.USERNAME_DB,
     password: process.env.PASSWORD_DB,
     database: process.env.DATABASE_DB,
-    entities: [join(__dirname, '/../**/*.entity{.ts,.js}')],
-    migrations: [join(__dirname, '/../migrations/*{.ts,.js}')],
-    autoLoadEntities: true,
-    synchronize: true,
-    // dropSchema: true,   // activarlo solo para borrar la base de datos
-};
+    //url_int:process.env.DATABASE_INTERNAL_UR,
+    //url_ext: process.env.DATABASE_EXTERNAL_EXT,
+    entities: [__dirname + 'dist/../Entidades/*.entity.{ts,js}'],
+    migrations: [__dirname + 'dist/../Migraciones/*.{ts,.js}'],
+    autoLoadEntities:true,
+    synchronize: false,
+    logging: true,
+    ssl: {
+        rejectUnauthorized: false, 
+    },
+}
 
 export default registerAs('typeorm', () => config);
+/*export DATABASE_URL = process.env.DATABASE_EXTERNAL_EXT
+export const connectionSource = new DataSource(config as DataSourceOptions);*/
 
-export const connectionSource = new DataSource(config as DataSourceOptions);
+  
