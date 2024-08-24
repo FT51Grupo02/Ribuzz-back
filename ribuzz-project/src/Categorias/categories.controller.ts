@@ -1,19 +1,53 @@
 /* eslint-disable prettier/prettier */
-import { Body, Post, Controller } from "@nestjs/common";
+import { Get,Body, Post, Controller, Delete, BadRequestException } from "@nestjs/common";
 import { CategoriesService } from "./categories.services";
+
 
 
 @Controller("categorias")
 export class CategoriesControl{
     constructor(private categoriesServive: CategoriesService) {}
 
+    @Get('/')
+    async categoryList(){
+        try{
+            const lista = await this.categoriesServive.categoryList();
+            const compList = lista.join(', ')
+            return {message:`Esta son las categorias que se encuentran registradas: ${compList}`}
+        }
+        catch(error){
+            throw new BadRequestException(`Hubo un error al encontrar la lista de categorias ${error}`);
+        }
+    }
+
     @Post('/')
-    findCategory(@Body('nombre') nombre:string){
-        return this.categoriesServive.findCategory(nombre)
+    async findCategory(@Body('nombre') nombre:string){
+        try{
+            return this.categoriesServive.findCategory(nombre)
+        }
+        catch(error){
+            throw new BadRequestException(`Hubo un error al encontrar la categoria ${error}`);
+        }
     }
 
     @Post('/agregar')
-    imputCategory(@Body('nombre') nombre: string){
-        return this.categoriesServive.imputCategory(nombre)
+    async imputCategory(@Body('nombre') nombre: string){
+        try{
+            return this.categoriesServive.imputCategory(nombre)
+        }
+        catch(error){
+            throw new BadRequestException(`Hubo un error al agregar la categoria ${error}`);
+        }
+    }
+
+    @Delete('/eliminar')
+    async deleteCategory(@Body("nombre") nombre:string){
+          try{
+            await this.categoriesServive.deleteCategory(nombre)
+            return {message:`La categoria ${nombre} ha sido eliminada éxitosamene`}
+          }  
+          catch(error){
+            throw new BadRequestException(`Hubo un error al eliminar la categoria ${error}`);
+          }
     }
 }

@@ -9,8 +9,12 @@ export class CategoriesService {
     constructor(@InjectRepository(Categories) private readonly categoriesRepository: Repository<Categories>) {}
 
 
-    
-    //Investigar productos por categoria
+    async categoryList(){
+        const categories = await this.categoriesRepository.find();
+        return categories.map(category => category.nombre);
+    }
+
+    //Investigar por categoria especifica
     async findCategory(nombre: string){
         if(!nombre){throw new BadRequestException('Por favor inserte la categoria')}
         
@@ -44,5 +48,15 @@ export class CategoriesService {
         return await this.categoriesRepository.save(newCategory);
     }
 
+    async deleteCategory(nombre:string):Promise<void>{
+
+        if(!nombre) {throw new BadRequestException("Por favor ingrese la categoria")}
+        
+        const categoryToDelete= await this.categoriesRepository.findOne({where:{nombre},})
+        
+        if(!categoryToDelete){throw new BadRequestException("Categoria no encontrada")}
+
+        await this.categoriesRepository.delete(categoryToDelete.id)
+    }
     
 }

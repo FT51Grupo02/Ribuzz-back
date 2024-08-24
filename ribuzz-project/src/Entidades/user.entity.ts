@@ -8,7 +8,7 @@ import {Orders} from "./orders.entity"
 })
 
 export class Users{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: number;
 
     @Column()

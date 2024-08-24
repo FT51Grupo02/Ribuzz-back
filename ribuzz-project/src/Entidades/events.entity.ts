@@ -7,14 +7,11 @@ import {Users} from "./user.entity"
 })
 
 export class Events{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id:string
 
     @Column()
-    seminario:boolean;
-
-    @Column()
-    networking:boolean;
+    nombre:string;
 
     @ManyToMany(() => Users, (user)=>user.id)
     @JoinColumn()
