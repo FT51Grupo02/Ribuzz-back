@@ -29,4 +29,26 @@ export class FileUploudController {
   ){
  return await this.fileUploudService.uploadImages(file,productId)
   }
+
+  @Put('uploadImage/:id')
+  // @UseGuards(AuthGuard)
+   @UseInterceptors(FileInterceptor('file'))
+   async UploadUserImages(@Param('id') userId: string,
+    @UploadedFile (
+      new ParseFilePipe({
+     validators:[
+       new MaxFileSizeValidator({
+         maxSize: 200000,
+         message: 'file tiene que ser de 200kb max'
+       }),
+       new FileTypeValidator({
+         fileType: /(jpg|jpeg|png|webp)$/,
+       }),   
+     ],
+   }),
+   ) 
+   file: Express.Multer.File
+   ){
+  return await this.fileUploudService.uploadImages(file,userId)
+   }
 } 
