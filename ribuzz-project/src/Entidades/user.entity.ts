@@ -26,6 +26,11 @@ export class Users{
     @Column()
     rol:string;
 
+    @Column({
+        nullable:true
+    })
+    foto:string
+
     @ManyToMany(()=>Events)
     @JoinColumn()
     eventos: Events[]
