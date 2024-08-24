@@ -14,6 +14,6 @@ export class AuthService{
     async signUp(user:Partial<Users>){
         
         const{correo,contraseña}=user
-        const foundUser = await this.userService.findOne(correo)
+       // const foundUser = await this.userService.findOne(correo)
     }
 }
