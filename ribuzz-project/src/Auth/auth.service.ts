@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
+import { Users } from "src/Entidades/user.entity";
 import { UsuarioService } from "src/usuario/usuario.service";
 
 @Injectable()
@@ -10,7 +11,9 @@ export class AuthService{
         private jwtService: JwtService,
     ){}
 
-    async signUp(){
+    async signUp(user:Partial<Users>){
         
+        const{correo,contraseña}=user
+        const foundUser = await this.userService.findOne(correo)
     }
 }
