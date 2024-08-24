@@ -8,13 +8,13 @@ import {Products} from "./products.entity"
 })
 
 export class Categories{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column()
     nombre: string
 
-    @ManyToMany(() => Products, (product)=>product.id)
+    @ManyToMany(() => Products, (product)=>product.categoria)
     @JoinTable()
     productos: Products[]
 }

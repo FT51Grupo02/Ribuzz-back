@@ -8,7 +8,7 @@ import { Details } from "./details.entity";
 })
 
 export class Orders{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id:string
 
     @Column()

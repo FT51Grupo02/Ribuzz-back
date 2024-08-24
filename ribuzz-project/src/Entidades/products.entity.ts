@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Entity, Column,PrimaryGeneratedColumn, ManyToMany, JoinColumn } from "typeorm";
+import { Entity, Column,PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
 import { Details } from "./details.entity";
 import {Categories} from "./categories.entity"
 
@@ -8,27 +8,39 @@ import {Categories} from "./categories.entity"
 })
 
 export class Products{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id:string
 
-    @Column()
+    @Column({
+        type:'varchar',
+        length:250
+    })
     descripcion:string
 
     @Column()
     imagen:string
     
-    @Column()
+    @Column({
+        type:'decimal',
+        scale:2,
+        precision:10,
+        nullable: false
+    })
     precio: number
 
-    @Column()
+    @Column({
+        type:'int',
+        nullable:false
+    })
     inventario: number
 
+
     @ManyToMany(()=> Details, (detail)=>detail.id)
-    @JoinColumn()
+    @JoinTable()
     detalle:Details[]
 
-    @ManyToMany(()=> Categories, (category)=>category.nombre)
-    @JoinColumn()
+    @ManyToMany(()=> Categories, (category)=>category.productos)
+    @JoinTable()
     categoria: Categories[]
 
 }
