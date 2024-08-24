@@ -26,7 +26,9 @@ export class Users{
     @Column()
     rol:string;
 
-    @Column()
+    @Column({
+        nullable:true
+    })
     foto:string
 
     @ManyToMany(()=>Events)
