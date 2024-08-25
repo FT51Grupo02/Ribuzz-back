@@ -11,7 +11,7 @@ export class AuthController{
     
     @Post('/ingreso')
     async signIn(@Body() credentials:AuthDto){
-        const{correo,contraseña}=credentials
-        return this.authService.signIn(correo,contraseña)
+        const{email,password}=credentials
+        return this.authService.signIn(email,password)
     }
 }
