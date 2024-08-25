@@ -11,9 +11,9 @@ export class Events{
     id:string
 
     @Column()
-    nombre:string;
+    name:string;
 
     @ManyToMany(() => Users, (user)=>user.id)
     @JoinColumn()
-    usuarios: Users[]
+    users: Users[]
 }

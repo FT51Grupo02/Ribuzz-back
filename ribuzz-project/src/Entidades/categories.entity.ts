@@ -12,9 +12,9 @@ export class Categories{
     id: string;
 
     @Column()
-    nombre: string
+    name: string
 
-    @ManyToMany(() => Products, (product)=>product.categoria)
+    @ManyToMany(() => Products, (product)=>product.category)
     @JoinTable()
-    productos: Products[]
+    products: Products[]
 }

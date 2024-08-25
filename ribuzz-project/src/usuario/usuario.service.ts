@@ -23,10 +23,10 @@ export class UsuarioService {
     */) {}
 
     async create(user: Partial<Users>){
-        const encript = await bcrypt.hash(user.contraseña, 10)
-        user.contraseña = encript
+        const encript = await bcrypt.hash(user.password, 10)
+        user.password = encript
         const newUser = await this.usuarioRepository.save(user);
-        const {contraseña, rol, ... userPassword} = newUser;
+        const {password, rol, ... userPassword} = newUser;
         return userPassword
     }
 
@@ -37,7 +37,7 @@ export class UsuarioService {
         const end = start + +limit
         users = users.slice(start,end)
 
-        return users.map(({contraseña, rol, ...user }) => user)
+        return users.map(({password, rol, ...user }) => user)
     }
 
     async findOne(id: number) {
@@ -47,7 +47,7 @@ export class UsuarioService {
     if (!usuario) {
         throw new NotFoundException(`Usuario con ID ${id} no encontrado.`);
     }
-    const {contraseña, rol, ... userPassword} = usuario;
+    const {password, rol, ... userPassword} = usuario;
     return userPassword
     }
 
@@ -63,7 +63,7 @@ export class UsuarioService {
         
         await this.usuarioRepository.save(updatedUser);
     
-        const { contraseña, ...userWithoutPassword } = updatedUser;
+        const { password, ...userWithoutPassword } = updatedUser;
     
         return userWithoutPassword;
     }
@@ -78,9 +78,9 @@ export class UsuarioService {
         return result;
         }
 
-    async findUserEmail(correo:string):Promise<Users>{
+    async findUserEmail(email:string):Promise<Users>{
 
-        const findEmail = await this.usuarioRepository.findOne({where:{correo}})
+        const findEmail = await this.usuarioRepository.findOne({where:{email}})
         return findEmail
     }    
 
