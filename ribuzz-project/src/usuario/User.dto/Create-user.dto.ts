@@ -1,4 +1,7 @@
 /* eslint-disable prettier/prettier */
+import { PickType } from "@nestjs/mapped-types/dist";
+
+/* eslint-disable prettier/prettier */
 export class CreateUserDto {
     nombre: string;
     correo: string;
@@ -6,3 +9,8 @@ export class CreateUserDto {
     fecha: Date;
     rol?: string;
 }
+
+export class LoginUserDto extends PickType(CreateUserDto,[
+    'correo',
+    'contraseña'
+]){}

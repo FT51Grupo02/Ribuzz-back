@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { Users } from "src/Entidades/user.entity";
 import { UsuarioService } from "src/usuario/usuario.service";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class AuthService{
@@ -11,9 +11,25 @@ export class AuthService{
         private jwtService: JwtService,
     ){}
 
-    async signUp(user:Partial<Users>){
+    async signIn(correo: string, contraseña:string){
         
-        const{correo,contraseña}=user
-        const foundUser = await this.userService.findOne(correo)
+        const find_user = await this.userService.findUserEmail(correo)
+        if(!find_user){throw new BadRequestException("Credenciales no validas")}
+
+        const isValidatePass = await bcrypt.compare((contraseña), find_user.contraseña)
+        if(!isValidatePass){throw new BadRequestException("Correo y/o contraseña invalidas")}
+
+        const usePayload = {
+            id:find_user.id,
+            correo:find_user.correo,
+            rol:find_user.rol
+        }
+
+        const token = await this.jwtService.sign(usePayload)
+
+        return {
+            message:"Ingreso éxitoso", 
+            token,
+        }
     }
 }

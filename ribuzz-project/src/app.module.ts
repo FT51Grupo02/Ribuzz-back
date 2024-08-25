@@ -8,7 +8,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CategoriesModule } from './Categorias/categories.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ProductsModule } from './products/products.module';
+import { AuthModule } from './Auth/auth.module';
 import { FileUploudModule } from './file-upload/file-upload.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -22,10 +24,16 @@ import { FileUploudModule } from './file-upload/file-upload.module';
         ...configService.get('typeorm'),
       }),
     }),
+    JwtModule.register({
+      global:true,
+      secret: process.env.JWT_SECRET,
+      signOptions:{expiresIn:'1h'}
+    }),
     CategoriesModule,
     UsuarioModule,
     ProductsModule,
-    FileUploudModule
+    FileUploudModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
