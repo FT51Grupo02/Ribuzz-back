@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Get,Body, Post, Controller, Delete, BadRequestException } from "@nestjs/common";
+import { Get,Body, Post, Controller, Delete, BadRequestException, UseGuards } from "@nestjs/common";
 import { CategoriesService } from "./categories.services";
-
+import { AuthGuard } from "src/Guardianes/Auth.guard";
 
 
 @Controller("categorias")
@@ -29,7 +29,8 @@ export class CategoriesControl{
             throw new BadRequestException(`Hubo un error al encontrar la categoria ${error}`);
         }
     }
-
+    
+    @UseGuards(AuthGuard)
     @Post('/agregar')
     async imputCategory(@Body('nombre') nombre: string){
         try{
