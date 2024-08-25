@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable,NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Products } from '../Entidades/products.entity';
@@ -22,7 +23,7 @@ export class FileUploudService {
         console.log(uploadedImage);
 
         await this.productRepository.update(product.id,{
-            imagen: uploadedImage.secure_url,
+            img: uploadedImage.secure_url,
         });
 
         return await this.productRepository.findOneBy({ id:productId })
@@ -37,7 +38,7 @@ export class FileUploudService {
     console.log(uploadedImage);
 
     await this.usuarioRepository.update(user.id,{
-        foto: uploadedImage.secure_url,
+        photo: uploadedImage.secure_url,
     });
 
     return await this.usuarioRepository.findOneBy({ id:userId })

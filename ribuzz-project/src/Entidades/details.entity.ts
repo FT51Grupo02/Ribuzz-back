@@ -16,5 +16,5 @@ export class Details{
 
     @ManyToMany(() => Products, (product)=>product.id)
     @JoinColumn()
-    productos: Products[]
+    products: Products[]
 }

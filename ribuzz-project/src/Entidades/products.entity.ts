@@ -15,10 +15,10 @@ export class Products{
         type:'varchar',
         length:250
     })
-    descripcion:string
+    description:string
 
     @Column()
-    imagen:string
+    img:string
     
     @Column({
         type:'decimal',
@@ -26,21 +26,21 @@ export class Products{
         precision:10,
         nullable: false
     })
-    precio: number
+    price: number
 
     @Column({
         type:'int',
         nullable:false
     })
-    inventario: number
+    stock: number
 
 
     @ManyToMany(()=> Details, (detail)=>detail.id)
     @JoinTable()
-    detalle:Details[]
+    detail:Details[]
 
-    @ManyToMany(()=> Categories, (category)=>category.productos)
+    @ManyToMany(()=> Categories, (category)=>category.products)
     @JoinTable()
-    categoria: Categories[]
+    category: Categories[]
 
 }

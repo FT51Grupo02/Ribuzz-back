@@ -12,16 +12,16 @@ export class Users{
     id: number;
 
     @Column()
-    nombre: string;
+    name: string;
 
     @Column()
-    correo:string;
+    email:string;
 
     @Column()
-    contraseña:string;
+    password:string;
 
     @Column()
-    fecha:Date;
+    date:Date;
 
     @Column()
     rol:string;
@@ -29,14 +29,14 @@ export class Users{
     @Column({
         nullable:true
     })
-    foto:string
+    photo:string
 
     @ManyToMany(()=>Events)
     @JoinColumn()
-    eventos: Events[]
+    events: Events[]
 
     @OneToMany(()=>Orders, (order)=>order.id)
     @JoinColumn()
-    orden: Orders[]
+    order: Orders[]
 
 }

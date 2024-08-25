@@ -12,17 +12,17 @@ export class Orders{
     id:string
 
     @Column()
-    fecha:Date
+    date:Date
 
     @Column()
-    modoPago:string;
+    pay:string;
 
     @ManyToOne(()=>Users, (user)=>user.id)
     @JoinColumn()
-    usuario:Users
+    user:Users
 
     @OneToOne(() => Details)
     @JoinColumn()
-    detalle:Details
+    detail:Details
 
 }
