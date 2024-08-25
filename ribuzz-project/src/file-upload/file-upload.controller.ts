@@ -30,7 +30,7 @@ export class FileUploudController {
  return await this.fileUploudService.uploadImages(file,productId)
   }
 
-  @Put('uploadImage/:id')
+  @Put('uploadUserImage/:id')
   // @UseGuards(AuthGuard)
    @UseInterceptors(FileInterceptor('file'))
    async UploadUserImages(@Param('id') userId: string,
@@ -49,6 +49,6 @@ export class FileUploudController {
    ) 
    file: Express.Multer.File
    ){
-  return await this.fileUploudService.uploadImages(file,userId)
+  return await this.fileUploudService.uploadUserImages(file,userId)
    }
 } 
