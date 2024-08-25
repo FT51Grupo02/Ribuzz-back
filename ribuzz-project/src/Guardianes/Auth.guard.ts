@@ -24,10 +24,10 @@ export class AuthGuard implements CanActivate{
             //Validación de roles
             switch(user){
                 case 1:
-                    user.usuario=user.rol=['Emprendedor']   
+                    user.user=user.rol=['Emprendedor']   
                     break;
                 case 2:
-                    user.cliente=user.rol=['Cliente']
+                    user.client=user.rol=['Cliente']
                     break;    
                 case 3:
                     user.admin=user.rol=['Admin']
